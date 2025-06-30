@@ -1,0 +1,7 @@
+{
+  "get_weather_mumbai": {
+    "description": "Get the current weather for Mumbai",
+    "path": "tools\\get_weather_mumbai.py",
+    "params": []
+  }
+}
