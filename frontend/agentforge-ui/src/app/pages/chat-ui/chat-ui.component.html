@@ -1,0 +1,56 @@
+<!-- <div class="chat-container">
+  <h2>💬 Agent Task Executor</h2>
+
+  <textarea
+    class="task-input"
+    [(ngModel)]="task"
+    placeholder="Enter your task..."
+    rows="3"
+  ></textarea>
+
+  <div *ngIf="toolParams.length" class="param-section">
+    <div *ngFor="let param of toolParams" class="param-input">
+      <label>{{ param.name }} ({{ param.type }})</label>
+      <input [(ngModel)]="args[param.name]" />
+    </div>
+  </div>
+
+  <button class="run-button" (click)="executeTask()" [disabled]="!task.trim() || loading">
+  {{ loading ? 'Running...' : '🚀 Execute Task' }}
+</button>
+
+
+  <div *ngIf="result" class="result-box">
+    <h3>Result</h3>
+    <pre>{{ result }}</pre>
+  </div>
+</div> -->
+
+
+<div class="chat-container">
+  <h2>💬 AgentForge Assistant</h2>
+
+  <div class="chat-thread">
+    <div *ngFor="let message of chatHistory" [ngClass]="{'user-msg': message.sender === 'user', 'agent-msg': message.sender === 'agent'}">
+      <strong>{{ message.sender === 'user' ? '🧑 You' : '🤖 Agent' }}</strong>: {{ message.text }}
+    </div>
+  </div>
+
+  <textarea
+    class="task-input"
+    [(ngModel)]="task"
+    placeholder="Enter your task..."
+    rows="3"
+  ></textarea>
+
+  <div *ngIf="toolParams.length" class="param-section">
+    <div *ngFor="let param of toolParams" class="param-input">
+      <label>{{ param.name }} ({{ param.type }})</label>
+      <input [(ngModel)]="args[param.name]" />
+    </div>
+  </div>
+
+  <button class="run-button" (click)="executeTask()" [disabled]="!task.trim() || loading">
+    {{ loading ? 'Running...' : '🚀 Execute Task' }}
+  </button>
+</div>

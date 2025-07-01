@@ -1,0 +1,23 @@
+.app-header {
+  background-color: #1e1e2f;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #333;
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #bbb;
+    }
+  }
+}
