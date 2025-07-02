@@ -26,7 +26,7 @@
   </div>
 </div> -->
 
-
+<!-- 
 <div class="chat-container">
   <h2>💬 AgentForge Assistant</h2>
 
@@ -53,4 +53,132 @@
   <button class="run-button" (click)="executeTask()" [disabled]="!task.trim() || loading">
     {{ loading ? 'Running...' : '🚀 Execute Task' }}
   </button>
+</div> -->
+
+
+<!-- chat-ui.component.html - Updated with wrapper -->
+<div class="chat-wrapper">
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>
+        <span>🤖</span>
+        AgentForge Assistant
+      </h2>
+      <span class="status-indicator" [class.active]="!loading">
+        <span class="dot"></span>
+        {{ loading ? 'Thinking...' : 'Ready' }}
+      </span>
+    </div>
+
+    <div class="chat-thread" #chatThread>
+      <!-- Welcome Message - Show when no chat history -->
+      <div *ngIf="chatHistory.length === 0" class="welcome-message">
+        <h3>Welcome to AgentForge! 🚀</h3>
+        <p>I can help you with any task by creating specialized AI tools on demand. Just tell me what you need!</p>
+        
+        <div class="example-tasks">
+          <div *ngFor="let example of exampleTasks" 
+               class="example-task" 
+               (click)="sendQuickAction(example)">
+            {{ example }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Messages -->
+      <div *ngFor="let message of chatHistory" 
+           class="message"
+           [ngClass]="{
+             'user-msg': message.sender === 'user',
+             'agent-msg': message.sender === 'agent',
+             'system-msg': message.sender === 'system',
+             'error-msg': message.isError
+           }">
+        <div class="message-header">
+          <span class="sender-icon">
+            {{ message.sender === 'user' ? '👤' : message.sender === 'agent' ? '🤖' : '⚙️' }}
+          </span>
+          <span class="sender-name">
+            {{ message.sender === 'user' ? 'You' : message.sender === 'agent' ? 'AgentForge' : 'System' }}
+          </span>
+          <span class="timestamp">
+            {{ message.timestamp | date:'short' }}
+          </span>
+        </div>
+        <div class="message-content" [innerHTML]="formatMessage(message.text)"></div>
+      </div>
+
+      <!-- Parameter Input Section -->
+      <div *ngIf="waitingForParams" class="param-request-section">
+        <div class="param-header">
+          <span class="param-icon">📋</span>
+          Please provide the following information:
+        </div>
+        
+        <div class="param-inputs">
+          <div *ngFor="let param of requiredParams" class="param-input-group">
+            <label>{{ param.name | titlecase }}:</label>
+            <input 
+              [(ngModel)]="paramValues[param.name]" 
+              [placeholder]="param.placeholder"
+              [type]="getInputType(param.type)"
+              class="param-input"
+              (keyup.enter)="submitWithParameters()">
+          </div>
+        </div>
+
+        <div class="param-actions">
+          <button class="btn btn-primary" (click)="submitWithParameters()" [disabled]="!allParamsProvided()">
+            ✅ Submit
+          </button>
+          <button class="btn btn-secondary" (click)="cancelParameters()">
+            ❌ Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading Animation -->
+      <div *ngIf="loading" class="loading-indicator">
+        <div class="typing-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="loading-text">AgentForge is thinking...</span>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions" *ngIf="!waitingForParams && chatHistory.length > 0">
+      <span class="quick-label">Quick actions:</span>
+      <button *ngFor="let action of quickActions" 
+              class="quick-btn" 
+              (click)="sendQuickAction(action.task)"
+              [title]="action.task">
+        <span class="quick-icon">{{ action.icon }}</span>
+        <span class="quick-text">{{ action.text }}</span>
+      </button>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-section">
+      <textarea
+        class="task-input"
+        [(ngModel)]="task"
+        placeholder="Ask me anything... I'll create the right tool for the job!"
+        rows="2"
+        (keydown)="handleKeyPress($event)"
+        [disabled]="loading || waitingForParams"
+      ></textarea>
+      
+      <button 
+        class="send-button" 
+        (click)="executeTask()" 
+        [disabled]="!task.trim() || loading || waitingForParams"
+        [class.loading]="loading">
+        <span *ngIf="!loading">🚀 Send</span>
+        <span *ngIf="loading">⏳ Processing...</span>
+      </button>
+    </div>
+  </div>
 </div>

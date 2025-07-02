@@ -1,6 +1,27 @@
 <header class="app-header">
-  <div class="header-content">
-    <span class="logo-text">🤖 AgentForge</span>
-    <span class="tagline">Self-Evolving AI Agents</span>
+  <div class="header-container">
+    <div class="header-content">
+      <div class="logo-section">
+        <span class="logo-icon">🚀</span>
+        <span class="logo-text">AgentForge</span>
+        <span class="version-badge">v2.0</span>
+      </div>
+      <span class="tagline">Autonomous AI Tool Creation</span>
+    </div>
+    
+    <nav class="header-nav">
+      <button class="nav-btn" (click)="showStats()">
+        <span class="nav-icon">📊</span>
+        <span class="nav-text">Stats</span>
+      </button>
+      <button class="nav-btn" (click)="showTools()">
+        <span class="nav-icon">🔧</span>
+        <span class="nav-text">Tools</span>
+      </button>
+      <button class="nav-btn status-btn" [class.online]="apiStatus === 'online'">
+        <span class="status-dot" [class.online]="apiStatus === 'online'"></span>
+        <span class="nav-text">{{ apiStatus === 'online' ? 'Online' : 'Offline' }}</span>
+      </button>
+    </nav>
   </div>
 </header>

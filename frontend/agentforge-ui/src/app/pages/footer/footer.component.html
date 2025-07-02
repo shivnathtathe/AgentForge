@@ -1,5 +1,38 @@
 <footer class="app-footer">
-  <p>
-    © 2025 <strong>AgentForge</strong> · Built with Angular + FastAPI
-  </p>
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <p class="footer-brand">
+          <span class="footer-logo">🚀</span>
+          <strong>AgentForge</strong>
+        </p>
+        <p class="footer-tagline">Autonomous Tool Creation in AI Agents</p>
+      </div>
+      
+      <div class="footer-section">
+        <p class="footer-stats">
+          <span class="stat-item">
+            <span class="stat-icon">🔧</span>
+            <span class="stat-value">{{ toolCount }}</span>
+            <span class="stat-label">Tools Created</span>
+          </span>
+          <span class="stat-item">
+            <span class="stat-icon">⚡</span>
+            <span class="stat-value">{{ executionCount }}</span>
+            <span class="stat-label">Executions</span>
+          </span>
+        </p>
+      </div>
+      
+      <div class="footer-section">
+        <p class="footer-tech">
+          Built with 
+          <span class="tech-badge">Angular</span> + 
+          <span class="tech-badge">FastAPI</span> + 
+          <span class="tech-badge">LangChain</span>
+        </p>
+        <p class="footer-copyright">© 2025 AgentForge · MIT License</p>
+      </div>
+    </div>
+  </div>
 </footer>
