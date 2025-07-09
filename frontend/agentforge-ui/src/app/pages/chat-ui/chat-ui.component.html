@@ -1,67 +1,9 @@
-<!-- <div class="chat-container">
-  <h2>💬 Agent Task Executor</h2>
 
-  <textarea
-    class="task-input"
-    [(ngModel)]="task"
-    placeholder="Enter your task..."
-    rows="3"
-  ></textarea>
-
-  <div *ngIf="toolParams.length" class="param-section">
-    <div *ngFor="let param of toolParams" class="param-input">
-      <label>{{ param.name }} ({{ param.type }})</label>
-      <input [(ngModel)]="args[param.name]" />
-    </div>
-  </div>
-
-  <button class="run-button" (click)="executeTask()" [disabled]="!task.trim() || loading">
-  {{ loading ? 'Running...' : '🚀 Execute Task' }}
-</button>
-
-
-  <div *ngIf="result" class="result-box">
-    <h3>Result</h3>
-    <pre>{{ result }}</pre>
-  </div>
-</div> -->
-
-<!-- 
-<div class="chat-container">
-  <h2>💬 AgentForge Assistant</h2>
-
-  <div class="chat-thread">
-    <div *ngFor="let message of chatHistory" [ngClass]="{'user-msg': message.sender === 'user', 'agent-msg': message.sender === 'agent'}">
-      <strong>{{ message.sender === 'user' ? '🧑 You' : '🤖 Agent' }}</strong>: {{ message.text }}
-    </div>
-  </div>
-
-  <textarea
-    class="task-input"
-    [(ngModel)]="task"
-    placeholder="Enter your task..."
-    rows="3"
-  ></textarea>
-
-  <div *ngIf="toolParams.length" class="param-section">
-    <div *ngFor="let param of toolParams" class="param-input">
-      <label>{{ param.name }} ({{ param.type }})</label>
-      <input [(ngModel)]="args[param.name]" />
-    </div>
-  </div>
-
-  <button class="run-button" (click)="executeTask()" [disabled]="!task.trim() || loading">
-    {{ loading ? 'Running...' : '🚀 Execute Task' }}
-  </button>
-</div> -->
-
-
-<!-- chat-ui.component.html - Updated with wrapper -->
 <div class="chat-wrapper">
   <div class="chat-container">
     <div class="chat-header">
       <h2>
-        <span>🤖</span>
+        <!-- <span>🤖</span> -->
         AgentForge Assistant
       </h2>
       <span class="status-indicator" [class.active]="!loading">
@@ -73,7 +15,7 @@
     <div class="chat-thread" #chatThread>
       <!-- Welcome Message - Show when no chat history -->
       <div *ngIf="chatHistory.length === 0" class="welcome-message">
-        <h3>Welcome to AgentForge! 🚀</h3>
+        <h3>Welcome to AgentForge!</h3>
         <p>I can help you with any task by creating specialized AI tools on demand. Just tell me what you need!</p>
         
         <div class="example-tasks">
@@ -111,7 +53,7 @@
       <!-- Parameter Input Section -->
       <div *ngIf="waitingForParams" class="param-request-section">
         <div class="param-header">
-          <span class="param-icon">📋</span>
+          <!-- <span class="param-icon">📋</span> -->
           Please provide the following information:
         </div>
         
@@ -129,10 +71,10 @@
 
         <div class="param-actions">
           <button class="btn btn-primary" (click)="submitWithParameters()" [disabled]="!allParamsProvided()">
-            ✅ Submit
+            Submit
           </button>
           <button class="btn btn-secondary" (click)="cancelParameters()">
-            ❌ Cancel
+            Cancel
           </button>
         </div>
       </div>
@@ -176,8 +118,8 @@
         (click)="executeTask()" 
         [disabled]="!task.trim() || loading || waitingForParams"
         [class.loading]="loading">
-        <span *ngIf="!loading">🚀 Send</span>
-        <span *ngIf="loading">⏳ Processing...</span>
+        <span *ngIf="!loading">Send</span>
+        <span *ngIf="loading">Processing...</span>
       </button>
     </div>
   </div>
