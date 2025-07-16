@@ -1,12 +1,1 @@
-{
-  "get_weather": {
-    "description": "Get current weather in austrolia",
-    "path": "tools\\get_weather.py",
-    "params": [
-      {
-        "name": "location",
-        "type": "str"
-      }
-    ]
-  }
-}
+{}

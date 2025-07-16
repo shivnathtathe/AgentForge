@@ -29,47 +29,47 @@ env_summary = ", ".join(env_keys) if env_keys else "None"
 def generate_tool_code(task_description: str) -> str:
     llm = get_llm()
     prompt = f"""
-You're a professional Python developer embedded inside an autonomous AI agent.
+        You're a professional Python developer embedded inside an autonomous AI agent.
 
-Your task is to write a Python function named `run(...)` that performs the following user-defined task:
+        Your task is to write a Python function named `run(...)` that performs the following user-defined task:
 
-Task: "{task_description}"
+        Task: "{task_description}"
 
----
+        ---
 
-RULES:
+        RULES:
 
-1. If the task includes **specific values** (like "Mumbai", "Bitcoin", or "USD"), convert them into function parameters:
-   - Example: "Get weather for Mumbai" → `run(city: str)`
-   - Example: "Price of Bitcoin in USD" → `run(coin: str, currency: str)`
+        1. Follow the instruction provided carefully.
 
-2. Validate each required parameter inside the function:
-   - If any parameter is missing or empty, return a message like:
-     `"Missing required parameter: 'city'. Please provide a city name."`
+        2. Validate each required parameter inside the function:
+        - If any parameter is missing or empty, return a message like:
+            `"Missing required parameter: 'city'. Please provide a city name."`
 
-3. If an API key is needed, fetch it using `os.getenv(...)` from the following environment variables:
-{env_summary}
+        3. If an API key is needed, fetch it using `os.getenv(...)` from the following environment variables:
+        {env_summary}
 
-4. Use a real, publicly accessible API if appropriate. Choose the most suitable free API if the task doesn't mention one.
+        4. Use a real, publicly accessible API if appropriate. Choose the most suitable free API if the task doesn't mention one.
 
-5. Make the function return a **clear, helpful message** explaining the result.
-   - If the task involves accessing sensitive or system data (like IP address), include a respectful disclaimer in the result.
+        5. Make the function return a **clear, helpful message** explaining the result.
+        - If the task involves accessing sensitive or system data (like IP address), include a respectful disclaimer in the result.
 
-6. DO NOT:
-   - Include *any* markdown formatting (like ```python, triple backticks, or headings)  write only clean code
-   - Include example usage or test calls
-   - Print anything — only `return` a user-facing string
-   - Output anything other than the final `def run(...)` function
-7. Before generating code check if api is live and working
----
+        6. DO NOT:
+        - Include *any* markdown formatting (like ```python, triple backticks, or headings)  write only clean code
+        - Include example usage or test calls
+        - Print anything — only `return` a user-facing string
+        - Output anything other than the final `def run(...)` function
+        7. Before generating code check if api is live and working
+        ---
 
-IMPORTANT:
-- Output **only** the valid Python code starting from `def run(...)`.
-- Do **not** include the word `python` or any markdown formatting at the top or anywhere else.
+        IMPORTANT:
+        - Output **only** the valid Python code starting from `def run(...)`.
+        - Do **not** include the word `python` or any markdown formatting at the top or anywhere else.
 
-Now write the `run(...)` function only.
-"""
-
+        Now write the `run(...)` function only.
+        """
+# If the task includes **specific values** (like "Mumbai", "Bitcoin", or "USD"), convert them into function parameters:
+#         - Example: "Get weather for Mumbai" → `run(city: str)`
+#         - Example: "Price of Bitcoin in USD" → `run(coin: str, currency: str)`
 
     response = llm.invoke(prompt)
     return clean_code(response.content)
