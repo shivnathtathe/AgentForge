@@ -31,7 +31,7 @@ AgentForge gives them the ability to *evolve their own capabilities* on the fly.
 
 ---
 
-## ⚙Tech Stack
+## Tech Stack
 - **LangChain** + **gemini-2.5-flash-preview-04-17 (Google Generative AI)**
 - On-the-fly code generation, validation, and registration
 - Pythonic execution environment with parameterized tools
@@ -47,6 +47,74 @@ AgentForge gives them the ability to *evolve their own capabilities* on the fly.
 | `/tools` | Auto-generated Python tools (`def run(...)`) |
 | `/paper` | Published research (PDF) |
 | `.env`   | API keys injected automatically at runtime |
+
+---
+
+## Installation & Usage
+
+AgentForge consists of a **Python backend** and an **Angular frontend**. Follow the steps below to set up both.
+
+---
+
+### Backend (Python)
+
+1. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Run the server**
+
+   ```bash
+   uvicorn app:main --reload
+   ```
+
+---
+
+### Frontend (Angular UI)
+
+1. **Navigate to the frontend folder**
+
+   ```bash
+   cd frontend/agentforge-ui
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the Angular development server**
+
+   ```bash
+   ng serve
+   ```
+
+4. **Access the app** in your browser:
+
+   ```
+   http://localhost:4200
+   ```
+
+---
+
+### API Keys
+
+Ensure you have a `.env` file in the root folder with your Gemini or OpenAI API keys:
+
+```
+GEMINI_API_KEY=your_gemini_key_here
+```
+
+> Tools created at runtime will be stored under the `/tools` folder and automatically registered.
+
+---
+
+### You’re Ready!
+
+Now the AgentForge backend and frontend are up and running. Start giving tasks to your agent — it will analyze the task, generate Python tools if needed, and execute them in real time.
 
 ---
 
