@@ -35,9 +35,8 @@ async def execute_task(request: TaskRequest):
         tool_meta = registry.get(tool_name, {})
         tool_path = tool_meta.get("path")
 
-        # ✅ Check if file exists
         if tool_path and not os.path.exists(tool_path):
-            print(f"⚠️ Tool '{tool_name}' registered but file missing. Recreating...")
+            print(f"Tool '{tool_name}' registered but file missing. Recreating...")
 
             code = generate_tool_code(task)
             tool_path = save_tool_file(tool_name, code)
@@ -45,13 +44,13 @@ async def execute_task(request: TaskRequest):
         else:
             used_existing = True
     else:
-        # ✅ Generate new tool
+    
         code = generate_tool_code(task)
         tool_name = safe_tool_name(task)
         tool_path = save_tool_file(tool_name, code)
         register_tool(registry, tool_name, task, tool_path)
 
-    # ✅ Run the tool
+   
     tool_meta = registry.get(tool_name, {})
     params = tool_meta.get("params", [])
     args = [request.args.get(param["name"], "") for param in params]
